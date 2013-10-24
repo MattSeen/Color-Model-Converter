@@ -3,8 +3,13 @@
         "id": "edit",
         "children":
         [
-            { "caption": "-","id": "hextohsl"},
-            { "command": "hex_to_hsl", "caption": "Convert Hex to HSL" }
+			{
+                "id": "colormodelconverter"
+            },
+            {
+                "command": "color_model_converter",
+                "caption": "Convert Between Color Models"
+            }
         ]
     }
 ]

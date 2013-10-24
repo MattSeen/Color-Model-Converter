@@ -1,6 +1,6 @@
 import sublime, sublime_plugin, re, string
 
-class hex_to_hslCommand(sublime_plugin.TextCommand):
+class color_model_converterCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
 
 		self.edit = edit

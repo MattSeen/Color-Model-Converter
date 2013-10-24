@@ -9,10 +9,10 @@ You can install using [Package Control](http://wbond.net/sublime_packages/packag
 # Usage
 Put the cursor on or select one or more hex colors (three character colors are OK)
 
-![Example 1](resource/ex1.png)
+![Example 1](resources/ex1.png)
 
 Press shift+ctrl+U.
 
 The colors will be converted to a properly formated CSS HSL color.
 
-![Example 2](resource/ex2.png)
+![Example 2](resources/ex2.png)

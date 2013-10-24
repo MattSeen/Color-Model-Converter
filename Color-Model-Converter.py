@@ -1,4 +1,9 @@
-import sublime, sublime_plugin, re, string
+import sublime
+import sublime_plugin
+import re
+import string
+
+import "utils\Color-Model-Detector.py"
 
 class color_model_converterCommand(sublime_plugin.TextCommand):
 	def run(self, edit):

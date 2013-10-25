@@ -4,9 +4,15 @@ class HSL:
         self.h = h
         self.s = s
         self.l = l
-    
+
+    def normalize(self):
+        pass
+
     def isValid():
         pass
+
+    def getValue(self):
+        return (self.h, self.s, self.l)
 
     def getCssValue(self):
         return "hsl(" + str(int(round(self.h * 360))) + ", " + self.per_str(self.s) + ", " + self.per_str(self.l) + ")"

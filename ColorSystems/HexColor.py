@@ -3,7 +3,9 @@ import string
 
 
 class HexColor:
-    """docstring for Hex"""
+    """
+        Hex object for use with the Sublime Color-Model-Convert plugin.
+    """
     def __init__(self, word):
         print("Creating Hex Object")
         self.word = word

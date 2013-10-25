@@ -62,3 +62,14 @@ class ColorSystemTranslator:
 
         print("Fully converted to HSL")
         return hsl
+
+    def toHSLA(self):
+
+        hsl = self.toHSL()
+
+        if hsl.isValid():
+            hsla = HSLA(hsl.getValue())
+            return hsla
+        else:
+            raise ValueError("No idea, how we got here...")
+

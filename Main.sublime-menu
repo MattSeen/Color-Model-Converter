@@ -4,9 +4,7 @@
         "children":
         [
 			{
-                "id": "colormodelconverter"
-            },
-            {
+                "id": "colormodelconverter",
                 "command": "color_model_converter",
                 "caption": "Convert Between Color Models"
             }

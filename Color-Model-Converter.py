@@ -3,18 +3,53 @@ import sublime_plugin
 import re
 import string
 
-import "utils\Color-Model-Detector.py"
+_DEBUGPRINT = True
+
+def debugPrint(msg):
+	if _DEBUGPRINT:
+		print(msg)
 
 class color_model_converterCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
-
 		self.edit = edit
 
+		debugPrint('Starting replacement Routine')
 		for region in self.view.sel():
 			self.region = region
 			self.word_reg = self.view.word(region)
 			if not self.word_reg.empty(): self.convert_to_hsl()
 
+	def convert_to_hsl(self):
+
+		word = self.get_selected_word()
+
+		debugPrint('Starting conversion for word') 
+		debugPrint(word)
+
+		if self.is_selected_word_hex_value(word):
+			debugPrint('word found to be a hexidecimal value')
+			r,g,b = self.hex_to_rgb(word)
+			h,s,l = self.rgb_to_hsl(r,g,b)
+			tmp_css_hsl = self.css_hsl(h,s,l)
+
+			tmp_reg = sublime.Region(self.word_reg.begin() - 1, self.word_reg.end())
+
+			self.view.replace(self.edit, tmp_reg, tmp_css_hsl)
+
+			return True
+
+	def hex_to_rgb(self, value):
+		
+		hex_value = value[1::]
+
+		length = len(hex_value)
+	
+		if length == 6:
+			r,g,b = tuple(int(hex_value[i:i+2], 16) for i in range(0, 6, 2))
+		else:
+			r,g,b = tuple(int(hex_value[i:i+1], 16)*17 for i in range(0, 3))
+
+		return (r,g,b)
 
 	def rgb_to_hsl(self,r,g,b):
 		# From http://sebsauvage.net/python/snyppets/#hsl
@@ -48,6 +83,8 @@ class color_model_converterCommand(sublime_plugin.TextCommand):
 
 		return (h,s,l)
 
+	def css_hsl(self,h,s,l):
+		return "hsl(" + str(int(round(h * 360))) + ", " + self.per_str(s) + ", " + self.per_str(l) + ")"
 
 	def per_str(self, val):
 		if val > 1:
@@ -57,34 +94,21 @@ class color_model_converterCommand(sublime_plugin.TextCommand):
 
 		return str(int(tmp_val)) + "%"
 
+	def get_selected_word(self):
+		full_region = sublime.Region(self.word_reg.begin() - 1, self.word_reg.end())
+		word = self.view.substr(full_region)
 
-	def css_hsl(self,h,s,l):
-		return "hsl(" + str(int(round(h * 360))) + ", " + self.per_str(s) + ", " + self.per_str(l) + ")"
+		return word
 
+	def is_selected_word_hex_value(self, word):
+		re_hex_color = re.compile('(#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?){1}$')
+		is_hex_value = re_hex_color.match(word)
 
-	def convert_to_hsl(self):
+		return is_hex_value
 
-		word = self.view.substr(self.word_reg)
-
-		re_hex_color = re.compile('([0-9a-fA-F]{3}([0-9a-fA-F]{3})?){1}$')
-		match = re_hex_color.match(word)
-
-		if match and self.view.substr(self.word_reg.begin() - 1) == "#":
-
-			word_len = len(word)
-
-			if word_len == 6:
-				r,g,b = tuple(int(word[i:i+2], 16) for i in range(0, 6, 2))
-			else:
-				r,g,b = tuple(int(word[i:i+1], 16)*17 for i in range(0, 3))
-
-			h,s,l = self.rgb_to_hsl(r,g,b)
-			tmp_css_hsl = self.css_hsl(h,s,l)
-
-			tmp_reg = sublime.Region(self.word_reg.begin() - 1, self.word_reg.end())
-
-			self.view.replace(self.edit, tmp_reg, tmp_css_hsl)
-
-			return True
-
-
+class color_system_detector:
+	"""docstring for color_system_detector"""
+	def __init__(self, arg):
+		# super(color_system_detector, self).__init__()
+		self.arg = arg
+	

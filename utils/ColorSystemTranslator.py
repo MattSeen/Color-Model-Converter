@@ -1,9 +1,10 @@
-from ..ColorSystems.RGB import RGB
-from ..ColorSystems.HexColor import HexColor
-from ..ColorSystems.HSL import HSL
+from .ColorSystems.RGB import RGB
+# from .ColorSystems.HexColor import HexColor
+from .ColorSystems.HSL import HSL
+from .ColorSystems.HSLA import HSLA
 
-import re
-import string
+# import re
+# import string
 
 class ColorSystemTranslator:
     """docstring for colour_system_translator"""

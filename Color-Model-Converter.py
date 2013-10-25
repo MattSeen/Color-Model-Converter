@@ -1,10 +1,10 @@
 import sublime
 import sublime_plugin
-import re
-import string
-from  .ColorSystems.HexColor import HexColor
-from .utils.ColorModelDetector import ColorModelDetector
-from .utils.ColorSystemTranslator import ColorSystemTranslator
+# import re
+# import string
+from  ColorSystems.HexColor import HexColor
+# from .utils.ColorModelDetector import ColorModelDetector
+from utils.ColorSystemTranslator import ColorSystemTranslator
 
 _DEBUGPRINT = True
 

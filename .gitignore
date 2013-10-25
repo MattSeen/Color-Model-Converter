@@ -7,6 +7,7 @@ thumbs.db
 .com.apple.timemachine.supported
 .sublime*
 *.pyc
+*.sublime-workspace
 
 ## Packages ##
 *.zip
